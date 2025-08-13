@@ -77,7 +77,7 @@
           }
 
           try {
-            const response = await axios.post('https://m3h-yoshida-0813.azurewebsites.net/api/LOGIN', {
+            const response = await axios.post('https://m3h-yoshida-0813.azurewebsites.net/api/LOGIN?', {
               ID: this.userid,
               Password: this.password
             });
