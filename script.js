@@ -3,21 +3,43 @@ const app = new Vue({
   vuetify: new Vuetify(),
   data: {
     // Vue内部で使いたい変数は全てこの中に定義する
-    task: '',
-    todoList: [], // これは配列
+    ID: '', //パラメーター「ID」格納変数
+    Name: '', //パラメーター「Name」格納変数
+    dataList: [], // データ表示用配列
   },
   methods: {
-    // 関数はここ
-    addTask: function() {
-      console.log('次のタスクが追加されました：', this.task);
-      // 配列の先頭に現在のタスク内容を追加する（最後尾の場合はpush）
-      this.todoList.unshift(this.task);
-      console.log('現在のToDo一覧：', this.todoList);
+    // DBにデータを追加する関数
+    addData: async function() {
+
+      //IDの入力チェック（空白か数字以外なら終了）
+      if(!this.ID || isNaN(this.ID)){
+        console.log("IDに数値が入力されていません");
+        return;
+      }
+      
+      //POSTメソッドで送るパラメーターを作成
+      const param = {
+        ID : this.ID,
+        Name : this.Name
+      };
+      
+      //INSERT用のAPIを呼び出し
+      const response = await axios.post('https://m3h-yoshida-001.azurewebsites.net/api/INSERT?',param);
+      
+      //結果をコンソールに出力
+      console.log(response.data);
+
     },
-    // 以下を追加、関数名はなんでもよい
-    clearAll: function() {
-      this.todoList = [];
-      console.log('全てのToDoが消去されました');
+    // データベースからデータを取得する関数
+    readData: async function() {
+      //SELECT用のAPIを呼び出し      
+      const response = await axios.get('https://m3h-yoshida-001.azurewebsites.net/api/SELECT?');
+      
+      //結果をコンソールに出力
+      console.log(response.data);
+      
+      //結果リストを表示用配列に代入
+      this.dataList = response.data.List;
     },
   },
 });

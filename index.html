@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="jp" >
 <head>
-  
   <meta charset="UTF-8">
-  <link rel='stylesheet' href='https://unpkg.com/@mdi/font@6.x/css/materialdesignicons.min.css'>
+  <title>Untitled</title>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css'>
+<link rel='stylesheet' href='https://unpkg.com/@mdi/font@6.x/css/materialdesignicons.min.css'>
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900'>
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css'>
 
 </head>
 <body>
@@ -19,7 +19,7 @@
           class="text-h3 mb-3 mt-3"
           justify="center"
           >
-          My ToDo App
+          APIに接続してみよう
         </v-row>
         <v-row
           class="mb-3 mt-3"
@@ -27,51 +27,54 @@
           justify="center"
           >
           <v-col 
-            cols="6"            
+            cols="4"            
             >
-            <v-textarea
+            <v-text-field
                   class="ml-6 mr-6"
-                  v-model:value="task"                         
-                  label="タスクを入力"
-                  placeholder="タスクを入力…"
+                  v-model:value="ID"                         
+                  label="IDを入力"
+                  placeholder="IDを入力…"
                   outlined
             >
-              
           </v-col>
-            
+            <v-col 
+            cols="6"            
+            >
+            <v-text-field
+                  class="ml-6 mr-6"
+                  v-model:value="Name"                         
+                  label="Nameを入力"
+                  placeholder="Nameを入力…"
+                  outlined
+            >
+          </v-col>
         </v-row>
         <v-row
           class="mb-3 mt-3"
           align="center"
           justify="center"
           >
-          タスク内容：{{ task }}
-
-          <v-btn v-on:click="addTask"
-               fab
+          入力内容　ID: {{ ID }} Name: {{ Name }}
+          <v-btn v-on:click="addData"               
                dark
                small               
                color="indigo"
-               >
-                 <v-icon dark>
-                   mdi-plus
-                 </v-icon>
+               >DBに登録
                </v-btn>
         </v-row>
         <v-row
           class="mb-3 mt-3"
           justify="center"
           > 
-          <v-btn v-on:click="clearAll"
-                 
+          <v-btn v-on:click="readData"                 
                  rounded
-                 >全てのToDoをクリア</v-btn>
+                 >現在の登録内容を表示する</v-btn>
         </v-row>
         <v-row 
           class="mb-3 mt-3"
           justify="center"
-          v-for="todo in todoList">
-          ・{{ todo }}
+          v-for="data in dataList">
+          ID:{{ data.ID }},Name:{{ data.Name }}
         </v-row>
       </v-container>
     </v-content>
@@ -79,7 +82,8 @@
 </div>
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script>
-<script src='https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js'></script><script  src="./script.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js'></script><script  src="./script.js"></script>
 
 </body>
 </html>
